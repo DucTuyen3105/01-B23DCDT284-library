@@ -1,0 +1,21 @@
+services:
+  db:
+    image: mysql:8.4
+    environment:
+      MYSQL_DATABASE: ${MYSQL_DATABASE:-libman}
+      MYSQL_USER: ${MYSQL_USER:-libman}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD:-libman_dev}
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD:-root_dev}
+    ports:
+      - "127.0.0.1:3307:3306"
+    volumes:
+      - libman-db:/var/lib/mysql
+      - ./database/01-schema.sql:/docker-entrypoint-initdb.d/01-schema.sql:ro
+      - ./database/02-seed.sql:/docker-entrypoint-initdb.d/02-seed.sql:ro
+    healthcheck:
+      test: ["CMD-SHELL", "mysqladmin ping -h localhost -u root -p$$MYSQL_ROOT_PASSWORD --silent"]
+      interval: 5s
+      timeout: 5s
+      retries: 30
+volumes:
+  libman-db:
