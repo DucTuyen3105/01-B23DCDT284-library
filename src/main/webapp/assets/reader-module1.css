@@ -1,0 +1,31 @@
+/* Figure 2.3: plain black/white panels, rectangular controls and six columns. */
+* { box-sizing: border-box; }
+body { margin: 0; padding: 40px 24px; color: #000; background: #fff; font-family: Arial, sans-serif; font-size: 22px; }
+.panel { border: 2px solid #000; margin: 0 auto; position: relative; padding: 16px 28px 48px; }
+h1 { font-size: 32px; line-height: 1.2; text-align: center; margin: 0 0 24px; font-weight: 700; }
+button, .button, input { font: inherit; color: #000; background: #fff; border: 2px solid #000; border-radius: 0; }
+button, .button { display: inline-flex; align-items: center; justify-content: center; min-height: 48px; padding: 5px 20px; cursor: pointer; text-decoration: none; }
+input { width: 100%; min-width: 0; height: 48px; padding: 5px 12px; }
+.home-panel { width: 472px; padding: 16px 32px 24px; }
+.reader-name { margin: 0 0 28px; }
+.home-action { margin: 0; text-align: center; }
+.home-action button { width: 302px; }
+.search-panel { width: 1102px; padding: 16px 24px 24px; }
+.search-form { display: grid; grid-template-columns: 165px minmax(0, 1fr) 178px 198px; align-items: center; gap: 22px; margin: 0; }
+.results-heading { margin: 26px 4px 24px; }
+table { width: 100%; border-collapse: collapse; table-layout: fixed; }
+th, td { border: 2px solid #000; text-align: left; vertical-align: top; padding: 10px; font-weight: 400; overflow-wrap: anywhere; }
+th { height: 70px; }
+td { height: 76px; }
+.code-col { width: 8%; } .name-col { width: 27%; } .category-col { width: 17%; }
+.author-col { width: 17%; } .publisher-col { width: 19%; } .quantity-col { width: 12%; }
+.subViewDocumentDetail { color: #000; text-decoration: none; }
+.subViewDocumentDetail:hover, .subViewDocumentDetail:focus { text-decoration: underline; }
+.detail-panel { width: 852px; padding: 16px 30px 24px; }
+.document-details { display: grid; grid-template-columns: 235px minmax(0, 1fr); row-gap: 22px; margin: 24px 0 58px; }
+.document-details dt, .document-details dd { margin: 0; overflow-wrap: anywhere; }
+.detail-back { width: 182px; }
+@media (max-width: 1150px) {
+    body { overflow-x: auto; }
+    .search-panel { margin-left: 0; }
+}
