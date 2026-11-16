@@ -12,6 +12,10 @@ services:
       - libman-db:/var/lib/mysql
       - ./database/01-schema.sql:/docker-entrypoint-initdb.d/01-schema.sql:ro
       - ./database/02-seed.sql:/docker-entrypoint-initdb.d/02-seed.sql:ro
+      - ./database/03-demo-data.sql:/docker-entrypoint-initdb.d/03-demo-data.sql:ro
+      - ./database/04-module2-demo.sql:/docker-entrypoint-initdb.d/04-module2-demo.sql:ro
+      - ./database/05-login-demo.sql:/docker-entrypoint-initdb.d/05-login-demo.sql:ro
+      - ./database/06-full-test.sql:/docker-entrypoint-initdb.d/06-full-test.sql:ro
     healthcheck:
       test: ["CMD-SHELL", "mysqladmin ping -h localhost -u root -p$$MYSQL_ROOT_PASSWORD --silent"]
       interval: 5s
