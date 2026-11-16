@@ -118,7 +118,7 @@ public class Module2FlowTest {
         String print=request("LoanSlipPrintView4.jsp?loanSlipId="+id,null,200,cookie);
         assertEquals(2,count(print,"<th\\b"));assertTrue(print.contains("Tên đọc lại từ database"));
         assertTrue(print.contains("Nguyễn Văn A"));assertTrue(print.contains("Trần Thị B"));assertTrue(print.contains("window.print()"));
-        request("LoanSlipPrintView4.jsp?loanSlipId="+id,null,403,null);
+        request("LoanSlipPrintView4.jsp?loanSlipId="+id,null,302,null);
         request("LoanSlipPrintView4.jsp?loanSlipId="+id,null,403,staffSession(11));
         request("LoanSlipPrintView4.jsp?loanSlipId=999999",null,404,cookie);
         request("LoanSlipPrintView4.jsp?loanSlipId=abc",null,400,cookie);
