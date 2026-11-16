@@ -1,0 +1,35 @@
+@import url("reader-module1.css");
+.staff-home-panel { width: 502px; padding: 16px 32px 24px; }
+.staff-home-panel h1 { font-size: 30px; white-space: nowrap; margin-left: -8px; margin-right: -8px; }
+.staff-name { margin: 0 0 26px; }
+.staff-home-panel button { width: 322px; }
+.loan-panel { width: 1112px; padding: 16px 24px 24px; }
+.loan-panel h1 { margin-bottom: 24px; }
+.reader-lookup { display: grid; grid-template-columns: 410px 1fr 228px; gap: 22px; align-items: center; }
+.document-lookup { display: grid; grid-template-columns: 155px 312px 172px 1fr; gap: 22px; align-items: center; }
+#outReaderInformation { margin: 18px 0 34px; }
+#outDocumentInformation { margin: 18px 0 34px; }
+.separator { margin: 0 20px; }
+.loan-panel th { height: 70px; }
+.loan-panel td { height: 70px; }
+.loan-dates, .print-pair { display: flex; gap: 60px; }
+.loan-dates { margin: 18px 4px 32px; }
+.loan-dates span { min-width: 265px; }
+.loan-actions { display: flex; gap: 32px; }
+.loan-actions form { margin: 0; }
+.loan-actions button { min-width: 236px; }
+.loan-actions form:nth-child(2) button { width: 262px; }
+.operation-message { margin: 16px 4px 0; }
+button:disabled { cursor: default; }
+.print-panel { width: 978px; padding: 16px 24px 24px; }
+.print-panel h1 { margin-bottom: 16px; }
+.print-panel p { margin: 0 4px 18px; }
+.print-panel td { height: 45px; }
+.print-panel #subPrint { width: 146px; margin-top: 8px; }
+@media print {
+    @page { margin: 15mm; }
+    body { padding: 0; font-size: 12pt; }
+    .print-panel { width: 100%; min-height: 0; }
+    .print-panel #subPrint { display: none; }
+    tr { break-inside: avoid; }
+}

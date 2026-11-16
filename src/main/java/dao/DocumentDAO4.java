@@ -71,12 +71,40 @@ public class DocumentDAO4 extends DAO4 {
         return document;
     }
 
-    // Lending operations are implemented with module 2.
     public boolean kiemTraKhaDung(int documentId) throws SQLException {
-        throw new UnsupportedOperationException("Module 2 is not implemented yet");
+        if (documentId <= 0) return false;
+        try (Connection c = getConnection(); PreparedStatement s = c.prepareStatement(
+                "SELECT id FROM tblDocument4 WHERE id=? AND quantity>0 AND status='AVAILABLE'")) {
+            s.setInt(1, documentId);
+            try (ResultSet rs = s.executeQuery()) { return rs.next(); }
+        }
+    }
+
+    /** Called on the transaction connection shared with the slip/detail DAOs. */
+    public boolean capNhatSoLuong(List<DetailLoanSlip4> details) throws SQLException {
+        if (connection == null || connection.getAutoCommit()) {
+            throw new SQLException("A transaction connection is required");
+        }
+        if (details == null || details.isEmpty()) throw new IllegalArgumentException("Empty documents");
+        java.util.TreeSet<Integer> ids = new java.util.TreeSet<>();
+        for (DetailLoanSlip4 detail : details) {
+            if (detail == null || detail.getDocument() == null || detail.getDocument().getId() <= 0
+                    || !ids.add(detail.getDocument().getId())) {
+                throw new IllegalArgumentException("Invalid or duplicate document");
+            }
+        }
+        try (PreparedStatement s = connection.prepareStatement("UPDATE tblDocument4 SET quantity=quantity-1 "
+                + "WHERE id=? AND quantity>0 AND status='AVAILABLE'")) {
+            for (int id : ids) {
+                s.setInt(1, id);
+                if (s.executeUpdate() != 1) throw new SQLException("Document is no longer available: " + id, "45000");
+            }
+        }
+        return true;
     }
 
     public boolean capNhatSoLuong(Connection connection, List<DetailLoanSlip4> details) throws SQLException {
-        throw new UnsupportedOperationException("Module 2 is not implemented yet");
+        return new DocumentDAO4(connection).capNhatSoLuong(details);
     }
+
 }
